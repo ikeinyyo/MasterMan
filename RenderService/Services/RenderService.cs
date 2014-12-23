@@ -30,7 +30,7 @@ namespace RenderService.Services
             backgroundColor = color;
         }
 
-        protected void Render(List<GraphicNode> tree)
+        public void Render(List<GraphicNode> tree)
         {
             world.Children.Clear();
 
