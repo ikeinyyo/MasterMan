@@ -1,4 +1,5 @@
-﻿using RenderService.Models;
+﻿using MasterMan.Core.Services;
+using RenderService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace MasterMan.UI.Services
 
         public void Render()
         {
-            List<GraphicNode> tree = new List<GraphicNode>();
+            List<GraphicNode> tree = SceneManager.Instance.GetUpdatedTree();
             render.Render(tree);
         }
     }
