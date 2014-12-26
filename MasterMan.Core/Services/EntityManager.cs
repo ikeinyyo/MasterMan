@@ -12,6 +12,8 @@ namespace MasterMan.Core.Services
         #region Fields
         private List<Entity> entities;
 
+        private List<Entity> deadEntities;
+
         public List<Entity> Entities
         {
             get { return entities; }
@@ -39,6 +41,7 @@ namespace MasterMan.Core.Services
         private EntityManager()
         {
             entities = new List<Entity>();
+            deadEntities = new List<Entity>();
         }
 
         public static EntityManager Instance
@@ -52,6 +55,11 @@ namespace MasterMan.Core.Services
                 return instance;
             }
         }
+
+        public void AddDeadEntity(Entity entity)
+        {
+            deadEntities.Add(entity);
+        }
         #endregion
 
         #region Public Methods
@@ -63,6 +71,7 @@ namespace MasterMan.Core.Services
         public bool Update()
         {
             bool finish = false;
+            deadEntities.Clear();
 
             if (player != null)
             {
@@ -75,6 +84,11 @@ namespace MasterMan.Core.Services
                 {
                     finish = finish || entity.Update();
                 }
+            }
+
+            foreach (var entity in deadEntities)
+            {
+                World.EraseEntity(entity, entity.Position);
             }
 
             return finish;

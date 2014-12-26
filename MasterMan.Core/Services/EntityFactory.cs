@@ -54,6 +54,7 @@ namespace MasterMan.Core.Services
                 Entity entity = new Entity(EntityType.Dot);
                 entity.AddComponent(new GraphicComponent(new Position(7, 0), Common.Render.Rendertype.Background));
                 entity.AddComponent(new BodyComponent(false, false, false));
+                entity.AddComponent(new MagneticComponent());
 
                 return entity;
             }

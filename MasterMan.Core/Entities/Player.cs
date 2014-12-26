@@ -10,10 +10,22 @@ namespace MasterMan.Core.Entities
 {
     public class Player : Entity
     {
+        private int points;
+
         public Player()
         {
             Type = EntityType.Player;
+            points = 0;
         }
+
+        public void AddPoints(int points)
+        {
+            if(points > 0)
+            {
+                this.points += points;
+            }
+        }
+
         public void Move(Direction direction)
         {
             var destination = Position.NextPosition(direction);
