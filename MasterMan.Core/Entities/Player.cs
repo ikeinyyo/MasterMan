@@ -1,4 +1,5 @@
 ﻿using MasterMan.Common.Enums;
+using MasterMan.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,8 @@ namespace MasterMan.Core.Entities
         }
         public void Move(Direction direction)
         {
-           // TODO: Implement
+            var destination = Position.NextPosition(direction);
+            EntityManager.Instance.World.MoveEntity(this, Position, destination);
         }
     }
 }

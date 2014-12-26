@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace MasterMan.UI.Services
 {
@@ -15,6 +16,11 @@ namespace MasterMan.UI.Services
         public MasterManRenderService(Canvas canvas, string textureUri, int tileSize, int mapSize)
         {
             render = new RenderService.Services.RenderService(canvas, textureUri, tileSize, mapSize);
+        }
+
+        public void SetBackgroundColor(Color color)
+        {
+            render.SetBackgroundColor(color);
         }
 
         public void Render()

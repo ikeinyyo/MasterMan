@@ -157,10 +157,6 @@ namespace MasterMan.Core.Entities
                     throw new ArgumentException("Entity is null", "entity");
                 }
             }
-            else
-            {
-                throw new ArgumentException("Position out of range", "position");
-            }
         }
 
         public bool ExistEntity(Entity entity, Position position)
