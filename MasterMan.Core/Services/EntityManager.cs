@@ -88,7 +88,7 @@ namespace MasterMan.Core.Services
 
             foreach (var entity in deadEntities)
             {
-                World.EraseEntity(entity, entity.Position);
+                World.EraseEntity(entity);
             }
 
             return finish;

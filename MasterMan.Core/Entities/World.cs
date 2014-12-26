@@ -114,11 +114,11 @@ namespace MasterMan.Core.Entities
             }
         }
 
-        public void RemoveEntity(Entity entity, Position position)
+        public void RemoveEntity(Entity entity)
         {
-            if (position != null && position.Validate(0, Width - 1, 0, Height - 1))
+            if (entity != null && entity.Position != null && entity.Position.Validate(0, Width - 1, 0, Height - 1))
             {
-                WorldMap[position.X][position.Y].Remove(entity);
+                WorldMap[entity.Position.X][entity.Position.Y].Remove(entity);
             }
             else
             {
@@ -126,11 +126,11 @@ namespace MasterMan.Core.Entities
             }
         }
 
-        public void EraseEntity(Entity entity, Position position)
+        public void EraseEntity(Entity entity)
         {
-            if (position != null && position.Validate(0, Width - 1, 0, Height - 1))
+            if (entity != null && entity.Position != null && entity.Position.Validate(0, Width - 1, 0, Height - 1))
             {
-                WorldMap[position.X][position.Y].Remove(entity);
+                WorldMap[entity.Position.X][entity.Position.Y].Remove(entity);
                 EntityManager.Instance.Entities.Remove(entity);
             }
             else
@@ -146,7 +146,7 @@ namespace MasterMan.Core.Entities
             {
                 if (entity != null && ExistEntity(entity, origin))
                 {
-                    RemoveEntity(entity, origin);
+                    RemoveEntity(entity);
                     SetEntity(entity, destination);
 
                     entity.Position.X = destination.X;

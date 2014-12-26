@@ -29,7 +29,11 @@ namespace MasterMan.Core.Entities
         public void Move(Direction direction)
         {
             var destination = Position.NextPosition(direction);
-            EntityManager.Instance.World.MoveEntity(this, Position, destination);
+            var world = EntityManager.Instance.World;
+            if (world.CanMove(destination))
+            {
+                world.MoveEntity(this, Position, destination);
+            }
         }
     }
 }
