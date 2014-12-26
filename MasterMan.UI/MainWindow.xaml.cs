@@ -59,12 +59,13 @@ namespace MasterMan.UI
                             entity = EntityFactory.Dot;
                         }
                         world.AddEntity(entity, new Common.Models.Position(i, j));
-
-
                     }
                 }
             }
-                render.Render();
+
+            world.AddEntity(EntityFactory.Skeleton, new Common.Models.Position(3, 3));
+
+            render.Render();
         }
 
         private void OnWindowKeyUp(object sender, KeyEventArgs e)

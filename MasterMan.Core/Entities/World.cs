@@ -139,8 +139,9 @@ namespace MasterMan.Core.Entities
             }
         }
 
-        public void MoveEntity(Entity entity, Position origin, Position destination)
+        public void MoveEntity(Entity entity, Position destination)
         {
+            var origin = entity.Position;
             if (origin != null && origin.Validate(0, Width - 1, 0, Height - 1) &&
                 destination != null && destination.Validate(0, Width - 1, 0, Height - 1))
             {

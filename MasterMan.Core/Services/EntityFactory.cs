@@ -43,6 +43,7 @@ namespace MasterMan.Core.Services
                 Entity entity = new Entity(EntityType.Skeleton);
                 entity.AddComponent(new GraphicComponent(new Position(3, 0), Common.Render.Rendertype.Normal));
                 entity.AddComponent(new BodyComponent(true, true, false));
+                entity.AddComponent(new BroomerComponent());
                 return entity;
             }
         }
