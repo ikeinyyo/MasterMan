@@ -32,7 +32,7 @@ namespace MasterMan.Core.Entities
             var world = EntityManager.Instance.World;
             if (world.CanMove(destination))
             {
-                world.MoveEntity(this, Position, destination);
+                world.MoveEntity(this, destination);
             }
         }
     }

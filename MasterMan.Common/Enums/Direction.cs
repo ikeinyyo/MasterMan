@@ -28,4 +28,43 @@ namespace MasterMan.Common.Enums
         [Description("downright")]
         DownRight
     }
+
+    public static class DirectionHelper
+    {
+        public static Direction GetOppositeDirection(Direction direction)
+        {
+            Direction opposite = Direction.None;
+
+            switch(direction)
+            {
+                case Direction.Up:
+                    opposite = Direction.Down;
+                    break;
+                case Direction.Down:
+                    opposite = Direction.Up;
+                    break;
+                case Direction.Left:
+                    opposite = Direction.Right;
+                    break;
+                case Direction.Right:
+                    opposite = Direction.Left;
+                    break;
+                case Direction.UpLeft:
+                    opposite = Direction.DownRight;
+                    break;
+                case Direction.UpRight:
+                    opposite = Direction.DownLeft;
+                    break;
+                case Direction.DownLeft:
+                    opposite = Direction.UpRight;
+                    break;
+                case Direction.DownRight:
+                    opposite = Direction.UpLeft;
+                    break;
+            }
+
+            return opposite;
+        }
+    }
+    
 }
