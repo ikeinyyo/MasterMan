@@ -40,7 +40,11 @@ namespace MasterMan.Core.Services
         {
             EntityManager entityManager = EntityManager.Instance;
             var entities = entityManager.Entities;
-            entities.Add(entityManager.Player);
+
+            if (entityManager.Player != null)
+            {
+                entities.Add(entityManager.Player);
+            }
 
             Clear();
             foreach (var entity in entities)

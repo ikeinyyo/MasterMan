@@ -1,8 +1,9 @@
 ﻿<Application x:Class="MasterMan.UI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="MainWindow.xaml">
+             xmlns:viewModels="clr-namespace:MasterMan.UI.ViewModels"
+             StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
-         
+        <viewModels:MainViewModel x:Key="MainViewModel" />
     </Application.Resources>
 </Application>
