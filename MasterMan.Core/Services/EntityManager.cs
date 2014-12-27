@@ -80,9 +80,14 @@ namespace MasterMan.Core.Services
 
             foreach (var entity in entities)
             {
-                if (entity != null)
+                if (entity != null && entity.IsAlive)
                 {
-                    finish = finish || entity.Update();
+                    if(entity.Update())
+                    {
+                        finish = true;
+                        World.EndedGame = true;
+                        break;
+                    }
                 }
             }
 

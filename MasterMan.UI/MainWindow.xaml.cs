@@ -70,34 +70,38 @@ namespace MasterMan.UI
 
         private void OnWindowKeyUp(object sender, KeyEventArgs e)
         {
+
             if (initialized)
             {
-                bool action = true;
-
-                Player player = EntityManager.Instance.Player;
-                switch (e.Key)
+                if(!EntityManager.Instance.World.EndedGame)
                 {
-                    case Key.Up:
-                        player.Move(Direction.Up);
-                        break;
-                    case Key.Down:
-                        player.Move(Direction.Down);
-                        break;
-                    case Key.Left:
-                        player.Move(Direction.Left);
-                        break;
-                    case Key.Right:
-                        player.Move(Direction.Right);
-                        break;
-                    default:
-                        action = false;
-                        break;
-                }
+                    bool action = true;
 
-                if (action)
-                {
-                    EntityManager.Instance.Update();
-                    render.Render();
+                    Player player = EntityManager.Instance.Player;
+                    switch (e.Key)
+                    {
+                        case Key.Up:
+                            player.Move(Direction.Up);
+                            break;
+                        case Key.Down:
+                            player.Move(Direction.Down);
+                            break;
+                        case Key.Left:
+                            player.Move(Direction.Left);
+                            break;
+                        case Key.Right:
+                            player.Move(Direction.Right);
+                            break;
+                        default:
+                            action = false;
+                            break;
+                    }
+
+                    if (action)
+                    {
+                        EntityManager.Instance.Update();
+                        render.Render();
+                    }
                 }
             }
         }

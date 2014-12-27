@@ -18,6 +18,8 @@ namespace MasterMan.Core.Entities
 
         public List<List<List<Entity>>> WorldMap { get; set; }
 
+        public bool EndedGame { get; set; }
+
         public World(int width, int height)
         {
             if (width <= 0)

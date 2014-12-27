@@ -16,11 +16,15 @@ namespace MasterMan.Core.Entities
 
         public EntityType Type { get; set; }
 
+        public bool IsAlive { get; set; }
+
+
         public Entity()
         {
             components = new List<ComponentBase>();
             Position = new Position();
             Type = EntityType.None;
+            IsAlive = true;
         }
 
         public Entity(EntityType type)
@@ -28,6 +32,7 @@ namespace MasterMan.Core.Entities
             components = new List<ComponentBase>();
             Position = new Position();
             Type = type;
+            IsAlive = true;
         }
 
         public bool Update()

@@ -22,6 +22,7 @@ namespace MasterMan.Core.Components
             {
                 EntityManager.Instance.AddDeadEntity(Entity);
                 player.AddPoints(points);
+                Entity.IsAlive = false;
             }
             return false;
         }

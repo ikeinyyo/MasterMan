@@ -37,9 +37,7 @@ namespace MasterMan.Core.Components
             {
                 direction = DirectionHelper.GetOppositeDirection(direction);
             }
-
             
-
             return finish;
         }
     }
