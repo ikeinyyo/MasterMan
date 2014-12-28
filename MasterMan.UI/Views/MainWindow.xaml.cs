@@ -54,7 +54,7 @@ namespace MasterMan.UI
 
         private void OnWindowKeyUp(object sender, KeyEventArgs e)
         {
-            if (!EntityManager.Instance.World.EndedGame)
+            if (EntityManager.Instance.World != null && !EntityManager.Instance.World.EndedGame)
             {
                 bool action = true;
 

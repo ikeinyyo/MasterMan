@@ -21,14 +21,20 @@ namespace MasterMan.UI.ViewModels
             set { points = value; RaisePropertyChanged(); }
         }
 
-       
-
         private event EventHandler needUpdate;
 
         public EventHandler NeedUpdate
         {
             get { return needUpdate; }
             set { needUpdate = value; RaisePropertyChanged(); }
+        }
+
+        private event EventHandler endGame;
+
+        public EventHandler EndGame
+        {
+            get { return endGame; }
+            set { endGame = value; RaisePropertyChanged(); }
         }
         #endregion
 
