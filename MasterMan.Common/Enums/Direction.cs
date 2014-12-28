@@ -26,7 +26,9 @@ namespace MasterMan.Common.Enums
         [Description("upright")]
         UpRight,
         [Description("downright")]
-        DownRight
+        DownRight,
+        [Description("unknow")]
+        Unknow
     }
 
     public static class DirectionHelper
@@ -64,6 +66,24 @@ namespace MasterMan.Common.Enums
             }
 
             return opposite;
+        }
+
+        public static Direction ParseDirection(string directionName)
+        {
+            Direction direction = Direction.Unknow;
+
+            var directionNames = typeof(Direction).GetEnumNames();
+            var directions = typeof(Direction).GetEnumValues();
+
+            for (int i = 0; i < directionNames.Length; i++)
+            {
+                if (directionNames[i].ToLower().Equals(directionName.ToLower()))
+                {
+                    direction = directions.OfType<Direction>().ToList()[i];
+                }
+            }
+
+            return direction;
         }
     }
     

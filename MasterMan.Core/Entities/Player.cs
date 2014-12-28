@@ -26,14 +26,18 @@ namespace MasterMan.Core.Entities
             }
         }
 
-        public void Move(Direction direction)
+        public bool Move(Direction direction)
         {
+            bool moved = false;
             var destination = Position.NextPosition(direction);
             var world = EntityManager.Instance.World;
             if (world.CanMove(destination))
             {
+                moved = true;
                 world.MoveEntity(this, destination);
             }
+
+            return moved;
         }
     }
 }

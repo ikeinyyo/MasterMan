@@ -10,10 +10,10 @@ using System.Windows.Media;
 
 namespace MasterMan.UI.Services
 {
-    public class MasterManRenderService
+    public class MasterRender
     {
         private RenderService.Services.RenderService render;
-        public MasterManRenderService(Canvas canvas, string textureUri, int tileSize, int mapSize)
+        public MasterRender(Canvas canvas, string textureUri, int tileSize, int mapSize)
         {
             render = new RenderService.Services.RenderService(canvas, textureUri, tileSize, mapSize);
         }

@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExternalServices", "Externa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RenderService", "RenderService\RenderService.csproj", "{1ED7B4B9-6FC2-4876-AEA4-30B55E1D9158}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkService", "NetworkService\NetworkService.csproj", "{C716BDD5-2A58-4B28-ABC8-08ABF7E8FB6A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,11 +37,16 @@ Global
 		{1ED7B4B9-6FC2-4876-AEA4-30B55E1D9158}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1ED7B4B9-6FC2-4876-AEA4-30B55E1D9158}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1ED7B4B9-6FC2-4876-AEA4-30B55E1D9158}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C716BDD5-2A58-4B28-ABC8-08ABF7E8FB6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C716BDD5-2A58-4B28-ABC8-08ABF7E8FB6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C716BDD5-2A58-4B28-ABC8-08ABF7E8FB6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C716BDD5-2A58-4B28-ABC8-08ABF7E8FB6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1ED7B4B9-6FC2-4876-AEA4-30B55E1D9158} = {7D36118C-EDCF-4E05-8204-4E5C8138B9E7}
+		{C716BDD5-2A58-4B28-ABC8-08ABF7E8FB6A} = {7D36118C-EDCF-4E05-8204-4E5C8138B9E7}
 	EndGlobalSection
 EndGlobal

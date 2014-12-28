@@ -26,8 +26,7 @@ namespace MasterMan.UI
     public partial class MainWindow : Window
     {
         #region Fields
-        private bool initialized = false;
-        private MasterManRenderService render;
+        private MasterRender render;
         #endregion
 
         public MainWindow()
@@ -37,7 +36,7 @@ namespace MasterMan.UI
         }
         private void InitializeRender()
         {
-            render = new MasterManRenderService(SceneWorld, "pack://application:,,,/MasterMan.UI;component/Assets/Textures/texture-map.png", 32, 256);
+            render = new MasterRender(SceneWorld, "pack://application:,,,/MasterMan.UI;component/Assets/Textures/texture-map.png", 32, 256);
             render.SetBackgroundColor(Colors.LimeGreen);
             render.Render();
             MainViewModel viewModel = DataContext as MainViewModel;

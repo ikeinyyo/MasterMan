@@ -2,11 +2,14 @@
 using GalaSoft.MvvmLight.Command;
 using MasterMan.Core.Entities;
 using MasterMan.Core.Services;
+using MasterMan.UI.Services;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MasterMan.UI.ViewModels
 {
@@ -40,10 +43,13 @@ namespace MasterMan.UI.ViewModels
 
         #region Fields
         private World world;
+        private MasterNetwork network;
+        private BackgroundWorker worker; 
         #endregion
 
         public MainViewModel()
         {
+            network = new MasterNetwork();
         }
 
 
@@ -78,18 +84,52 @@ namespace MasterMan.UI.ViewModels
         #endregion
 
         #region Commands
+        private void SendNeedUpdate()
+        {
+            if (NeedUpdate != null)
+            {
+                NeedUpdate(this, null);
+            }
+        }
+
         public RelayCommand CreateWorld
         {
             get
             {
                 return new RelayCommand(() => 
                 { 
-                    MockWorld();  
-                    if(NeedUpdate != null)
+                    MockWorld();
+                    network.LaunchConsole();
+                    SendNeedUpdate();
+
+                    if (worker != null)
                     {
-                        NeedUpdate(this, null);
+                        worker.DoWork -= LoopGame;
+                        worker.CancelAsync();
+                        worker.Dispose();
                     }
+
+                    worker = new BackgroundWorker();
+                    worker.DoWork += LoopGame;
+                    worker.RunWorkerAsync();
                 });
+            }
+        }
+        #endregion
+
+        #region Private Methods
+        private void LoopGame(object sender, DoWorkEventArgs e)
+        {
+            string command = network.Step();
+            while (!command.Equals("exit"))
+            {
+                network.ExecuteCommand(command);
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    SendNeedUpdate();
+                });
+
+                command = network.Step();
             }
         }
         #endregion

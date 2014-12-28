@@ -83,7 +83,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Services\MasterManRenderService.cs" />
+    <Compile Include="Services\MasterRender.cs" />
+    <Compile Include="Services\MasterNetwork.cs" />
     <Compile Include="Services\SceneManager.cs" />
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -136,12 +137,19 @@
       <Project>{55760f63-2c45-4b0d-a419-1198d1a76c6f}</Project>
       <Name>MasterMan.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NetworkService\NetworkService.csproj">
+      <Project>{c716bdd5-2a58-4b28-abc8-08abf7e8fb6a}</Project>
+      <Name>NetworkService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RenderService\RenderService.csproj">
       <Project>{1ed7b4b9-6fc2-4876-aea4-30b55e1d9158}</Project>
       <Name>RenderService</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Bots\console.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Textures\texture-map.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
