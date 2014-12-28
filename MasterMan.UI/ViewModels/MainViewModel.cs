@@ -99,26 +99,60 @@ namespace MasterMan.UI.ViewModels
                 return new RelayCommand(() => 
                 { 
                     MockWorld();
-                    network.LaunchConsole();
                     SendNeedUpdate();
+
+                    launchBoot();
+                    launchWorker();
+                });
+            }
+        }
+
+        public RelayCommand Dispose
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    if (network != null)
+                    {
+                        network.Dispose();
+                    }
 
                     if (worker != null)
                     {
-                        worker.DoWork -= LoopGame;
-                        worker.CancelAsync();
+                        worker.DoWork -= loopGame;
                         worker.Dispose();
                     }
-
-                    worker = new BackgroundWorker();
-                    worker.DoWork += LoopGame;
-                    worker.RunWorkerAsync();
                 });
             }
         }
         #endregion
 
         #region Private Methods
-        private void LoopGame(object sender, DoWorkEventArgs e)
+        private void launchBoot()
+        {
+            if (network != null)
+            {
+                network.Dispose();
+            }
+            network = new MasterNetwork();
+            network.LaunchConsole();
+        }
+
+        private void launchWorker()
+        {
+            if (worker != null)
+            {
+                worker.DoWork -= loopGame;
+                worker.Dispose();
+            }
+
+            worker = new BackgroundWorker();
+            worker.DoWork += loopGame;
+            worker.RunWorkerAsync();
+        }
+
+        private void loopGame(object sender, DoWorkEventArgs e)
         {
             string command = network.Step();
             while (!command.Equals("exit"))

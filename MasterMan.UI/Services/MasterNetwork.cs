@@ -109,7 +109,7 @@ namespace MasterMan.UI.Services
         public void Move(Direction direction)
         {
             var world = EntityManager.Instance.World;
-            if (world != null && EntityManager.Instance.Player != null)
+            if (world != null && EntityManager.Instance.Player != null && !world.EndedGame)
             {
                 bool moved = EntityManager.Instance.Player.Move(direction);
                 
@@ -117,10 +117,6 @@ namespace MasterMan.UI.Services
                 {
                     EntityManager.Instance.Update();
                 }
-            }
-            else
-            {
-                throw new NullReferenceException("World or Player are null. MasterServices no initialized");
             }
         }
         #endregion
