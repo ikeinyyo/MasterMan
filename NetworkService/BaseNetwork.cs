@@ -45,6 +45,11 @@ namespace NetworkService
             process = StartProcess("node.exe", script, showWindows, redirectInput);
         }
 
+        public void LaunchProcess(string program, bool showWindows, bool redirectInput = true)
+        {
+            process = StartProcess(program, "", showWindows, redirectInput);
+        }
+
         protected void SendMessage(string message)
         {
             if (process != null)

@@ -136,7 +136,7 @@ namespace MasterMan.UI.ViewModels
                 network.Dispose();
             }
             network = new MasterNetwork();
-            network.LaunchConsole();
+            network.LaunchDefaultBot();
         }
 
         private void launchWorker()
@@ -152,16 +152,21 @@ namespace MasterMan.UI.ViewModels
             worker.RunWorkerAsync();
         }
 
-        private void loopGame(object sender, DoWorkEventArgs e)
+        private async void loopGame(object sender, DoWorkEventArgs e)
         {
             string command = network.Step();
             while (!command.Equals("exit"))
             {
-                network.ExecuteCommand(command);
-                Application.Current.Dispatcher.Invoke(() =>
+                bool needUpdate = network.ExecuteCommand(command);
+                if (needUpdate)
                 {
-                    SendNeedUpdate();
-                });
+                    await Task.Delay(500);
+                    EntityManager.Instance.Update();
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        SendNeedUpdate();
+                    });
+                }
 
                 command = network.Step();
             }

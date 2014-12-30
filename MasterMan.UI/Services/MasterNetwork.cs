@@ -14,6 +14,7 @@ namespace MasterMan.UI.Services
     public class MasterNetwork : BaseNetwork
     {
         private Dictionary<string, Action<Direction>> actions;
+        private bool needUpdate;
 
         public MasterNetwork()
         {
@@ -26,11 +27,18 @@ namespace MasterMan.UI.Services
             LaunchNodeProcess(botFilename, true);
         }
 
+        public void LaunchDefaultBot()
+        {
+            var outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase).Replace("file:\\", "");
+            var botFilename = Path.Combine(outPutDirectory, @"..\..\..\BotExample\bin\Debug\BotExample.exe");
+            LaunchProcess(botFilename, true);
+        }
+
         public void LaunchConsole()
         {
             var outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase).Replace("file:\\", "");
-            var iconPath = Path.Combine(outPutDirectory, @"Assets\Bots\console.js");
-            LaunchNodeProcess(iconPath, true, false);
+            var consolePath = Path.Combine(outPutDirectory, @"Assets\Bots\console.js");
+            LaunchNodeProcess(consolePath, true, false);
         }
 
         public void Dispose()
@@ -68,9 +76,11 @@ namespace MasterMan.UI.Services
         }
 
         #region Prepare Commands
-        public void ExecuteCommand(string command)
+        public bool ExecuteCommand(string command)
         {
+            needUpdate = false;
             ParseCommand(command);
+            return needUpdate;
         }
 
         private void ParseCommand(string command)
@@ -108,16 +118,14 @@ namespace MasterMan.UI.Services
         #region Command
         public void Move(Direction direction)
         {
+            bool moved = false;
             var world = EntityManager.Instance.World;
             if (world != null && EntityManager.Instance.Player != null && !world.EndedGame)
             {
-                bool moved = EntityManager.Instance.Player.Move(direction);
-                
-                if(moved)
-                {
-                    EntityManager.Instance.Update();
-                }
+                moved = EntityManager.Instance.Player.Move(direction);
             }
+
+            needUpdate = moved;
         }
         #endregion
     }
