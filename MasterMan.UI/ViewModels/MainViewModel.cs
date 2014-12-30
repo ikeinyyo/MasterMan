@@ -4,9 +4,11 @@ using MasterMan.Core.Entities;
 using MasterMan.Core.Models;
 using MasterMan.Core.Services;
 using MasterMan.UI.Services;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,6 +42,31 @@ namespace MasterMan.UI.ViewModels
             get { return endGame; }
             set { endGame = value; RaisePropertyChanged(); }
         }
+
+        private string botPath;
+
+        public string BotPath
+        {
+            get { return botPath; }
+            set { botPath = value; RaisePropertyChanged(); }
+        }
+
+        private string mapPath;
+
+        public string MapPath
+        {
+            get { return mapPath; }
+            set { mapPath = value; RaisePropertyChanged(); }
+        }
+
+        private int velocity;
+
+        public int Velocity
+        {
+            get { return velocity; }
+            set { velocity = value; RaisePropertyChanged(); }
+        }
+
         #endregion
 
         #region Fields
@@ -50,6 +77,7 @@ namespace MasterMan.UI.ViewModels
 
         public MainViewModel()
         {
+            Velocity = 500;
             network = new MasterNetwork();
         }
 
@@ -57,18 +85,26 @@ namespace MasterMan.UI.ViewModels
         #region Mock Methods
         private void MockWorld()
         {
-            world = new World(20, 10);
+            world = new World(15, 11);
             Player player = EntityFactory.Player;
             world.SetPlayer(player, new Position(1, 1));
 
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 15; i++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < 11; j++)
                 {
                     if (i != 1 || j != 1)
                     {
                         Entity entity = null;
-                        if (i == 0 || j == 0 || i == 19 || j == 9)
+                        if (i == 0 || j == 0 || i == 14 || j == 10)
+                        {
+                            entity = EntityFactory.Tree;
+                        }
+                        else if(i == 4 && j != 9)
+                        {
+                            entity = EntityFactory.Tree;
+                        }
+                        else if (i == 8 && j != 1)
                         {
                             entity = EntityFactory.Tree;
                         }
@@ -98,7 +134,8 @@ namespace MasterMan.UI.ViewModels
             get
             {
                 return new RelayCommand(() => 
-                { 
+                {
+                    reset();
                     MockWorld();
                     SendNeedUpdate();
 
@@ -108,22 +145,29 @@ namespace MasterMan.UI.ViewModels
             }
         }
 
+        public RelayCommand SelectBot
+        {
+            get
+            {
+                return new RelayCommand(selectBot);
+            }
+        }
+
+        public RelayCommand SelectMap
+        {
+            get
+            {
+                return new RelayCommand(selectMap);
+            }
+        }
+
         public RelayCommand Dispose
         {
             get
             {
                 return new RelayCommand(() =>
                 {
-                    if (network != null)
-                    {
-                        network.Dispose();
-                    }
-
-                    if (worker != null)
-                    {
-                        worker.DoWork -= loopGame;
-                        worker.Dispose();
-                    }
+                    dispose();
                 });
             }
         }
@@ -137,7 +181,24 @@ namespace MasterMan.UI.ViewModels
                 network.Dispose();
             }
             network = new MasterNetwork();
-            network.LaunchDefaultBot();
+            if (!string.IsNullOrEmpty(BotPath))
+            {
+                var extension = Path.GetExtension(BotPath); 
+
+                switch(extension)
+                {
+                    case ".exe":
+                    network.LaunchBot(BotPath);
+                        break;
+                    case ".js":
+                        network.LaunchNodeBot(BotPath);
+                        break;
+                }
+            }
+            else
+            {
+                network.LaunchDefaultBot();
+            }
         }
 
         private void launchWorker()
@@ -149,10 +210,30 @@ namespace MasterMan.UI.ViewModels
             }
 
             worker = new BackgroundWorker();
+            worker.WorkerSupportsCancellation = true;
             worker.DoWork += loopGame;
             worker.RunWorkerAsync();
         }
 
+
+        private void reset()
+        {
+            dispose();
+        }
+
+        private void dispose()
+        {
+            if (worker != null)
+            {
+                worker.DoWork -= loopGame;
+                worker.CancelAsync();
+            }
+
+            if (network != null)
+            {
+                network.Dispose();
+            }
+        }
         private async void loopGame(object sender, DoWorkEventArgs e)
         {
             string command = network.Step();
@@ -161,7 +242,7 @@ namespace MasterMan.UI.ViewModels
                 bool needUpdate = network.ExecuteCommand(command);
                 if (needUpdate)
                 {
-                    await Task.Delay(100);
+                    await Task.Delay(Velocity);
                     EntityManager.Instance.Update();
                     Application.Current.Dispatcher.Invoke(() =>
                     {
@@ -170,6 +251,32 @@ namespace MasterMan.UI.ViewModels
                 }
 
                 command = network.Step();
+            }
+        }
+
+        private void selectBot()
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Executables|*.exe|Node Script|*.js";
+
+            bool? select = dialog.ShowDialog();
+
+            if (select != null && select.Value)
+            {
+                BotPath = dialog.FileName;
+            }
+        }
+
+        private void selectMap()
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Text file|*.txt";
+
+            bool? select = dialog.ShowDialog();
+
+            if (select != null && select.Value)
+            {
+                MapPath = dialog.FileName;
             }
         }
         #endregion

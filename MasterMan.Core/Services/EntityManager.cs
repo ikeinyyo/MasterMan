@@ -65,6 +65,8 @@ namespace MasterMan.Core.Services
         #region Public Methods
         public void Clear()
         {
+            world = null;
+            player = null;
             entities.Clear();
         }
 

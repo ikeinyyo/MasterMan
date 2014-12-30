@@ -37,7 +37,7 @@ namespace NetworkService
 
         protected bool IsProcessLaunched()
         {
-            return process != null;
+            return process != null && !process.HasExited;
         }
 
         public void LaunchNodeProcess(string script, bool showWindows, bool redirectInput = true)

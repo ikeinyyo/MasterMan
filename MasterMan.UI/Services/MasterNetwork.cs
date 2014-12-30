@@ -24,16 +24,21 @@ namespace MasterMan.UI.Services
             actions.Add("status", GetStatus);
         }
 
+        public void LaunchNodeBot(string botFilename)
+        {
+            LaunchNodeProcess(botFilename, true, false);
+        }
+
         public void LaunchBot(string botFilename)
         {
-            LaunchNodeProcess(botFilename, true);
+            LaunchProcess(botFilename, false);
         }
 
         public void LaunchDefaultBot()
         {
             var outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase).Replace("file:\\", "");
             var botFilename = Path.Combine(outPutDirectory, @"..\..\..\BotExample\bin\Debug\BotExample.exe");
-            LaunchProcess(botFilename, true);
+            LaunchProcess(botFilename, false);
         }
 
         public void LaunchConsole()
