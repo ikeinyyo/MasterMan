@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MasterMan.Core.Entities;
+using MasterMan.Core.Models;
 using MasterMan.Core.Services;
 using MasterMan.UI.Services;
 using System;
@@ -58,7 +59,7 @@ namespace MasterMan.UI.ViewModels
         {
             world = new World(20, 10);
             Player player = EntityFactory.Player;
-            world.SetPlayer(player, new Common.Models.Position(1, 1));
+            world.SetPlayer(player, new Position(1, 1));
 
             for (int i = 0; i < 20; i++)
             {
@@ -75,11 +76,11 @@ namespace MasterMan.UI.ViewModels
                         {
                             entity = EntityFactory.Dot;
                         }
-                        world.AddEntity(entity, new Common.Models.Position(i, j));
+                        world.AddEntity(entity, new Position(i, j));
                     }
                 }
             }
-            world.AddEntity(EntityFactory.Skeleton, new Common.Models.Position(3, 3));
+           // world.AddEntity(EntityFactory.Skeleton, new Common.Models.Position(3, 3));
         }
         #endregion
 
@@ -160,7 +161,7 @@ namespace MasterMan.UI.ViewModels
                 bool needUpdate = network.ExecuteCommand(command);
                 if (needUpdate)
                 {
-                    await Task.Delay(500);
+                    await Task.Delay(100);
                     EntityManager.Instance.Update();
                     Application.Current.Dispatcher.Invoke(() =>
                     {

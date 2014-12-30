@@ -1,5 +1,5 @@
-﻿using MasterMan.Common.Enums;
-using MasterMan.Common.Models;
+﻿using MasterMan.Core.Enums;
+using MasterMan.Core.Models;
 using MasterMan.Core.Components;
 using MasterMan.Core.Services;
 using System;
@@ -250,6 +250,23 @@ namespace MasterMan.Core.Entities
             }
 
             return canMove;
+        }
+
+        public List<Entity> See(Direction direction)
+        {
+            List<Entity> seenEntities = new List<Entity>();
+
+            var player = EntityManager.Instance.Player;
+            if (player != null && player.Position != null)
+            {
+                var position = player.Position.NextPosition(direction);
+                if (position != null && position.Validate(0, Width - 1, 0, Height - 1))
+                {
+                    seenEntities = WorldMap[position.X][position.Y];
+                }
+            }
+
+            return seenEntities;
         }
 
         #endregion

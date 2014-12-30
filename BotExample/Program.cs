@@ -10,10 +10,24 @@ namespace BotExample
     {
         static void Main(string[] args)
         {
-            while(true)
+            while (MasterMan.IsRun())
             {
-                Console.ReadLine();
-                Console.WriteLine("move right");
+                if (MasterMan.IsType(MasterMan.Right, MasterMan.Dot))
+                {
+                    MasterMan.Move(MasterMan.Right);
+                }
+                else if (MasterMan.IsType(MasterMan.Left, MasterMan.Dot))
+                {
+                    MasterMan.Move(MasterMan.Left);
+                }
+                else if (MasterMan.IsType(MasterMan.Up, MasterMan.Dot))
+                {
+                    MasterMan.Move(MasterMan.Up);
+                }
+                else if (MasterMan.IsType(MasterMan.Down, MasterMan.Dot))
+                {
+                    MasterMan.Move(MasterMan.Down);
+                }
             }
         }
     }

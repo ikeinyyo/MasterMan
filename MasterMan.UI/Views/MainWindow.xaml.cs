@@ -1,4 +1,4 @@
-﻿using MasterMan.Common.Enums;
+﻿using MasterMan.Core.Enums;
 using MasterMan.Core.Entities;
 using MasterMan.Core.Services;
 using MasterMan.UI.Services;

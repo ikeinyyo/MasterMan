@@ -1,4 +1,4 @@
-﻿using MasterMan.Common.Enums;
+﻿using MasterMan.Core.Enums;
 using MasterMan.Core.Services;
 using NetworkService;
 using System;
@@ -20,6 +20,8 @@ namespace MasterMan.UI.Services
         {
             actions = new Dictionary<string, Action<Direction>>();
             actions.Add("move", Move);
+            actions.Add("see", See);
+            actions.Add("status", GetStatus);
         }
 
         public void LaunchBot(string botFilename)
@@ -52,14 +54,6 @@ namespace MasterMan.UI.Services
 
             if (IsProcessLaunched())
             {
-                try
-                {
-                    SendMessage("Continue");
-                }
-                catch
-                {
-                }
-
                 bool newStep = false;
                 while (!newStep)
                 {
@@ -126,6 +120,50 @@ namespace MasterMan.UI.Services
             }
 
             needUpdate = moved;
+        }
+
+        public void See(Direction direction)
+        {
+             var world = EntityManager.Instance.World;
+             if (world != null && EntityManager.Instance.Player != null && !world.EndedGame)
+             {
+                 var entities = world.See(direction);
+                 string entityTypes = string.Empty;
+
+                 if (entities.Any())
+                 {
+                     entityTypes = entities.First().Type.ToString().ToLowerInvariant();
+
+                     foreach (var item in entities.Skip(1))
+                     {
+                         entityTypes += "," + entities.First().Type.ToString().ToLowerInvariant();
+                     }
+                 }
+
+                 SendMessage(entityTypes);
+             }
+            needUpdate = false;
+        }
+
+        public void GetStatus(Direction none)
+        {
+            Status status = Status.Run;
+            var world = EntityManager.Instance.World;
+            if (world != null)
+            {
+                if(world.EndedGame)
+                {
+                    if(EntityManager.Instance.Player.IsAlive)
+                    {
+                        status = Status.Win;
+                    }
+                    else
+                    {
+                        status = Status.GameOver;
+                    }
+                }
+            }
+            SendMessage(status.ToString().ToLowerInvariant());
         }
         #endregion
     }

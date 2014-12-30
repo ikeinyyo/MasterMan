@@ -1,5 +1,5 @@
-﻿using MasterMan.Common.Enums;
-using MasterMan.Common.Models;
+﻿using MasterMan.Core.Enums;
+using MasterMan.Core.Models;
 using MasterMan.Core.Components;
 using MasterMan.Core.Entities;
 using System;
@@ -17,7 +17,7 @@ namespace MasterMan.Core.Services
             get
             {
                 Entity entity = new Entity(EntityType.Tree);
-                entity.AddComponent(new GraphicComponent(new Position(1, 0), Common.Render.Rendertype.FirstLevel));
+                entity.AddComponent(new GraphicComponent(new Position(1, 0), Rendertype.FirstLevel));
                 entity.AddComponent(new BodyComponent(true, false, true));
 
                 return entity;
@@ -29,7 +29,7 @@ namespace MasterMan.Core.Services
             get
             {
                 Player entity = new Player();
-                entity.AddComponent(new GraphicComponent(new Position(2, 0), Common.Render.Rendertype.FirstLevel));
+                entity.AddComponent(new GraphicComponent(new Position(2, 0), Rendertype.FirstLevel));
                 entity.AddComponent(new BodyComponent(true, false, false));
 
                 return entity;
@@ -41,7 +41,7 @@ namespace MasterMan.Core.Services
             get
             {
                 Entity entity = new Entity(EntityType.Skeleton);
-                entity.AddComponent(new GraphicComponent(new Position(3, 0), Common.Render.Rendertype.Normal));
+                entity.AddComponent(new GraphicComponent(new Position(3, 0), Rendertype.Normal));
                 entity.AddComponent(new BodyComponent(true, true, false));
                 entity.AddComponent(new BroomerComponent());
                 return entity;
@@ -53,7 +53,7 @@ namespace MasterMan.Core.Services
             get
             {
                 Entity entity = new Entity(EntityType.Dot);
-                entity.AddComponent(new GraphicComponent(new Position(7, 0), Common.Render.Rendertype.Background));
+                entity.AddComponent(new GraphicComponent(new Position(7, 0), Rendertype.Background));
                 entity.AddComponent(new BodyComponent(false, false, false));
                 entity.AddComponent(new MagneticComponent());
 

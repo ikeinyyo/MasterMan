@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Enums\Direction.cs" />
     <Compile Include="Enums\Entities.cs" />
+    <Compile Include="Enums\World.cs" />
     <Compile Include="Models\Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Render\RenderType.cs" />

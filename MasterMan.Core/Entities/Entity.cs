@@ -1,5 +1,5 @@
-﻿using MasterMan.Common.Enums;
-using MasterMan.Common.Models;
+﻿using MasterMan.Core.Enums;
+using MasterMan.Core.Models;
 using MasterMan.Core.Components;
 using System;
 using System.Collections.Generic;

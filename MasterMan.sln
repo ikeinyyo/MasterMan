@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterMan.UI", "MasterMan.U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterMan.Core", "MasterMan.Core\MasterMan.Core.csproj", "{55760F63-2C45-4B0D-A419-1198D1A76C6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterMan.Common", "MasterMan.Common\MasterMan.Common.csproj", "{31079C8E-1D6B-4F07-86D7-3BCB0F8770A6}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExternalServices", "ExternalServices", "{7D36118C-EDCF-4E05-8204-4E5C8138B9E7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RenderService", "RenderService\RenderService.csproj", "{1ED7B4B9-6FC2-4876-AEA4-30B55E1D9158}"
@@ -31,10 +29,6 @@ Global
 		{55760F63-2C45-4B0D-A419-1198D1A76C6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55760F63-2C45-4B0D-A419-1198D1A76C6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55760F63-2C45-4B0D-A419-1198D1A76C6F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{31079C8E-1D6B-4F07-86D7-3BCB0F8770A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{31079C8E-1D6B-4F07-86D7-3BCB0F8770A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{31079C8E-1D6B-4F07-86D7-3BCB0F8770A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{31079C8E-1D6B-4F07-86D7-3BCB0F8770A6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1ED7B4B9-6FC2-4876-AEA4-30B55E1D9158}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1ED7B4B9-6FC2-4876-AEA4-30B55E1D9158}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1ED7B4B9-6FC2-4876-AEA4-30B55E1D9158}.Release|Any CPU.ActiveCfg = Release|Any CPU

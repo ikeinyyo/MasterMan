@@ -1,4 +1,5 @@
 ﻿using MasterMan.Core.Components;
+using MasterMan.Core.Enums;
 using RenderService.Models;
 using System;
 using System.Collections.Generic;
@@ -61,13 +62,13 @@ namespace MasterMan.Core.Services
                         RenderService.Enums.DrawPriority priority;
                         switch(graphicComponent.RenderType)
                         {
-                            case Common.Render.Rendertype.FirstLevel:
+                            case Rendertype.FirstLevel:
                                 priority = RenderService.Enums.DrawPriority.High;
                                 break;
-                            case Common.Render.Rendertype.Background:
+                            case Rendertype.Background:
                                 priority = RenderService.Enums.DrawPriority.Low;
                                 break;
-                            case Common.Render.Rendertype.Normal:
+                            case Rendertype.Normal:
                                 priority = RenderService.Enums.DrawPriority.Normal;
                                 break;
                             default: 
