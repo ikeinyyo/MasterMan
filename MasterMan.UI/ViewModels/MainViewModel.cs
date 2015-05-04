@@ -5,6 +5,7 @@ using MasterMan.Core.Entities;
 using MasterMan.Core.Enums;
 using MasterMan.Core.Models;
 using MasterMan.Core.Services;
+using MasterMan.UI.Properties;
 using MasterMan.UI.Services;
 using Microsoft.Win32;
 using System;
@@ -58,7 +59,7 @@ namespace MasterMan.UI.ViewModels
         public string MapPath
         {
             get { return mapPath; }
-            set { mapPath = value; RaisePropertyChanged(); updateWorld(); }
+            set { mapPath = value; RaisePropertyChanged(); if (!string.IsNullOrEmpty(MapPath)) { updateWorld(); } }
         }
 
         private int velocity;
@@ -80,9 +81,23 @@ namespace MasterMan.UI.ViewModels
         public MainViewModel()
         {
             Velocity = 500;
+            loadLocalSettings();
             network = new MasterNetwork();
         }
 
+        private void loadLocalSettings()
+        {
+            if(!string.IsNullOrEmpty(Settings.Default.LastBotPath))
+            {
+                BotPath = Settings.Default.LastBotPath;
+            }
+
+            if (!string.IsNullOrEmpty(Settings.Default.LastMapPath))
+            {
+                MapPath = Settings.Default.LastMapPath;
+            }
+            
+        }
 
         #region Mock Methods
         private void MockWorld()
@@ -265,7 +280,18 @@ namespace MasterMan.UI.ViewModels
 
             if (select != null && select.Value)
             {
-                BotPath = dialog.FileName;
+                if (File.Exists(dialog.FileName))
+                {
+                    BotPath = dialog.FileName;
+                    Settings.Default.LastBotPath = BotPath;
+                }
+                else
+                {
+                    MessageBox.Show("Map File Not Found");
+                    Settings.Default.LastBotPath = string.Empty;
+                }
+                Settings.Default.Save();
+
             }
         }
 
@@ -278,7 +304,19 @@ namespace MasterMan.UI.ViewModels
 
             if (select != null && select.Value)
             {
-                MapPath = dialog.FileName;
+                if(File.Exists(dialog.FileName))
+                {
+                    MapPath = dialog.FileName;
+                    Settings.Default.LastMapPath = MapPath;
+                }
+                else
+                {
+                    MessageBox.Show("Map File Not Found");
+                    Settings.Default.LastMapPath = string.Empty;
+                } 
+                Settings.Default.Save();
+
+                
             }
         }
 
@@ -291,40 +329,57 @@ namespace MasterMan.UI.ViewModels
             entityDictionary.Add("@", EntityFactory.Player);
             entityDictionary.Add(".", EntityFactory.Dot);
 
-            MapReader mapReader = new MapReader(MapPath, entityDictionary);
-
-            world = new World(mapReader.Width, mapReader.Height);
-            var mapEntities = mapReader.Map;
-            Player player = EntityFactory.Player;
-            int rowCount = 0;
-            int columnCount = 0;
-
-            foreach (var row in mapEntities)
+            MapReader mapReader = null;
+            try
             {
-                rowCount = 0;
-                foreach (var cell in row)
-                {
-                    foreach (var entity in cell)
-                    {
-                        var realEntity = entity as Entity;
-                        if (realEntity != null)
-                        {
-                            if (realEntity.Type != EntityType.Player)
-                            {
-                                world.AddEntity(EntityFactory.FromType(realEntity.Type), new Position(columnCount, rowCount));
-                            }
-                            else
-                            {
-                                world.SetPlayer(player, new Position(columnCount,rowCount));
-                            }
-                        }
-                    }
-                    rowCount++;
-                }
-                columnCount++;
+                mapReader = new MapReader(MapPath, entityDictionary);
+ 
+            }
+            catch(FileNotFoundException ex)
+            {
+                mapReader = null;
+                MessageBox.Show("Map File Not Found");
+                Settings.Default.LastMapPath = string.Empty;
+                MapPath = string.Empty;
+                Settings.Default.Save();
             }
 
-            SendNeedUpdate();
+            if(mapReader != null)
+            {
+                world = new World(mapReader.Width, mapReader.Height);
+                var mapEntities = mapReader.Map;
+                Player player = EntityFactory.Player;
+                int rowCount = 0;
+                int columnCount = 0;
+
+                foreach (var row in mapEntities)
+                {
+                    rowCount = 0;
+                    foreach (var cell in row)
+                    {
+                        foreach (var entity in cell)
+                        {
+                            var realEntity = entity as Entity;
+                            if (realEntity != null)
+                            {
+                                if (realEntity.Type != EntityType.Player)
+                                {
+                                    world.AddEntity(EntityFactory.FromType(realEntity.Type), new Position(columnCount, rowCount));
+                                }
+                                else
+                                {
+                                    world.SetPlayer(player, new Position(columnCount, rowCount));
+                                }
+                            }
+                        }
+                        rowCount++;
+                    }
+                    columnCount++;
+                }
+
+                SendNeedUpdate();
+            }
+           
 
         }
         #endregion
