@@ -60,5 +60,27 @@ namespace MasterMan.Core.Services
                 return entity;
             }
         }
+
+        public static Entity FromType(EntityType type)
+        {
+            Entity entity = null;
+            switch(type)
+            {
+                case EntityType.Dot:
+                    entity = Dot;
+                    break;
+                case EntityType.Player:
+                    entity = Player;
+                    break;
+                case EntityType.Skeleton:
+                    entity = Skeleton;
+                    break;
+                case EntityType.Tree:
+                    entity = Tree;
+                    break;
+            }
+
+            return entity;
+        }
     }
 }

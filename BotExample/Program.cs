@@ -12,19 +12,27 @@ namespace BotExample
         {
             while (MasterMan.IsRun())
             {
-                if (MasterMan.IsType(MasterMan.Right, MasterMan.Dot))
+                if (MasterMan.IsType(MasterMan.Up, MasterMan.Dot))
                 {
-                    MasterMan.Move(MasterMan.Right);
+                    MasterMan.Move(MasterMan.Up);
+                }
+                else if (MasterMan.IsType(MasterMan.Down, MasterMan.Dot))
+                {
+                    MasterMan.Move(MasterMan.Down);
                 }
                 else if (MasterMan.IsType(MasterMan.Left, MasterMan.Dot))
                 {
                     MasterMan.Move(MasterMan.Left);
                 }
+                else if (MasterMan.IsType(MasterMan.Right, MasterMan.Dot))
+                {
+                    MasterMan.Move(MasterMan.Right);
+                }
                 else if (MasterMan.IsType(MasterMan.Up, MasterMan.Dot))
                 {
                     MasterMan.Move(MasterMan.Up);
                 }
-                else if (MasterMan.IsType(MasterMan.Down, MasterMan.Dot))
+                else //(MasterMan.IsType(MasterMan.Down, MasterMan.Dot))
                 {
                     MasterMan.Move(MasterMan.Down);
                 }

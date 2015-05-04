@@ -129,6 +129,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MapReaderService\MapReaderService.csproj">
+      <Project>{ed469b9e-471e-4cd2-9457-cbb8b0eec46d}</Project>
+      <Name>MapReaderService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MasterMan.Core\MasterMan.Core.csproj">
       <Project>{55760f63-2c45-4b0d-a419-1198d1a76c6f}</Project>
       <Name>MasterMan.Core</Name>

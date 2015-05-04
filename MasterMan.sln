@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterMan.UI", "MasterMan.UI\MasterMan.UI.csproj", "{8A10A527-3627-4221-B596-B1A494929741}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkService", "NetworkService\NetworkService.csproj", "{C716BDD5-2A58-4B28-ABC8-08ABF7E8FB6A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotExample", "BotExample\BotExample.csproj", "{C7805F64-7067-4DEC-8E8E-D06BB0704E63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapReaderService", "MapReaderService\MapReaderService.csproj", "{ED469B9E-471E-4CD2-9457-CBB8B0EEC46D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{C7805F64-7067-4DEC-8E8E-D06BB0704E63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7805F64-7067-4DEC-8E8E-D06BB0704E63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7805F64-7067-4DEC-8E8E-D06BB0704E63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED469B9E-471E-4CD2-9457-CBB8B0EEC46D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED469B9E-471E-4CD2-9457-CBB8B0EEC46D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED469B9E-471E-4CD2-9457-CBB8B0EEC46D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED469B9E-471E-4CD2-9457-CBB8B0EEC46D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,5 +54,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{1ED7B4B9-6FC2-4876-AEA4-30B55E1D9158} = {7D36118C-EDCF-4E05-8204-4E5C8138B9E7}
 		{C716BDD5-2A58-4B28-ABC8-08ABF7E8FB6A} = {7D36118C-EDCF-4E05-8204-4E5C8138B9E7}
+		{ED469B9E-471E-4CD2-9457-CBB8B0EEC46D} = {7D36118C-EDCF-4E05-8204-4E5C8138B9E7}
 	EndGlobalSection
 EndGlobal

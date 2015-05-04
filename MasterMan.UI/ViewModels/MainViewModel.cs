@@ -1,6 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using MapReaderService;
 using MasterMan.Core.Entities;
+using MasterMan.Core.Enums;
 using MasterMan.Core.Models;
 using MasterMan.Core.Services;
 using MasterMan.UI.Services;
@@ -56,7 +58,7 @@ namespace MasterMan.UI.ViewModels
         public string MapPath
         {
             get { return mapPath; }
-            set { mapPath = value; RaisePropertyChanged(); }
+            set { mapPath = value; RaisePropertyChanged(); updateWorld(); }
         }
 
         private int velocity;
@@ -72,7 +74,7 @@ namespace MasterMan.UI.ViewModels
         #region Fields
         private World world;
         private MasterNetwork network;
-        private BackgroundWorker worker; 
+        private BackgroundWorker worker;
         #endregion
 
         public MainViewModel()
@@ -100,7 +102,7 @@ namespace MasterMan.UI.ViewModels
                         {
                             entity = EntityFactory.Tree;
                         }
-                        else if(i == 4 && j != 9)
+                        else if (i == 4 && j != 9)
                         {
                             entity = EntityFactory.Tree;
                         }
@@ -116,7 +118,7 @@ namespace MasterMan.UI.ViewModels
                     }
                 }
             }
-           // world.AddEntity(EntityFactory.Skeleton, new Common.Models.Position(3, 3));
+            // world.AddEntity(EntityFactory.Skeleton, new Common.Models.Position(3, 3));
         }
         #endregion
 
@@ -133,10 +135,10 @@ namespace MasterMan.UI.ViewModels
         {
             get
             {
-                return new RelayCommand(() => 
+                return new RelayCommand(() =>
                 {
                     reset();
-                    MockWorld();
+                   // MockWorld();
                     SendNeedUpdate();
 
                     launchBoot();
@@ -183,12 +185,12 @@ namespace MasterMan.UI.ViewModels
             network = new MasterNetwork();
             if (!string.IsNullOrEmpty(BotPath))
             {
-                var extension = Path.GetExtension(BotPath); 
+                var extension = Path.GetExtension(BotPath);
 
-                switch(extension)
+                switch (extension)
                 {
                     case ".exe":
-                    network.LaunchBot(BotPath);
+                        network.LaunchBot(BotPath);
                         break;
                     case ".js":
                         network.LaunchNodeBot(BotPath);
@@ -278,6 +280,52 @@ namespace MasterMan.UI.ViewModels
             {
                 MapPath = dialog.FileName;
             }
+        }
+
+        private void updateWorld()
+        {
+            reset();
+
+            Dictionary<string, object> entityDictionary = new Dictionary<string, object>();
+            entityDictionary.Add("#", EntityFactory.Tree);
+            entityDictionary.Add("@", EntityFactory.Player);
+            entityDictionary.Add(".", EntityFactory.Dot);
+
+            MapReader mapReader = new MapReader(MapPath, entityDictionary);
+
+            world = new World(mapReader.Width, mapReader.Height);
+            var mapEntities = mapReader.Map;
+            Player player = EntityFactory.Player;
+            int rowCount = 0;
+            int columnCount = 0;
+
+            foreach (var row in mapEntities)
+            {
+                rowCount = 0;
+                foreach (var cell in row)
+                {
+                    foreach (var entity in cell)
+                    {
+                        var realEntity = entity as Entity;
+                        if (realEntity != null)
+                        {
+                            if (realEntity.Type != EntityType.Player)
+                            {
+                                world.AddEntity(EntityFactory.FromType(realEntity.Type), new Position(columnCount, rowCount));
+                            }
+                            else
+                            {
+                                world.SetPlayer(player, new Position(columnCount,rowCount));
+                            }
+                        }
+                    }
+                    rowCount++;
+                }
+                columnCount++;
+            }
+
+            SendNeedUpdate();
+
         }
         #endregion
     }

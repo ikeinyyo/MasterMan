@@ -30,9 +30,9 @@
                     <TextBox Height="23" AcceptsReturn="False" MaxLines="1" MaxHeight="23" Text="{Binding BotPath}" Margin="0,0,110,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalScrollBarVisibility="Disabled" IsReadOnly="True"/>
                     <Button x:Name="SelectBot" Height="23" Content="Select bot" VerticalAlignment="Bottom" Command="{Binding SelectBot}" Width="100" HorizontalAlignment="Right"/>
                 </Grid>
-                <Label Visibility="Collapsed" Content="Map"/>
-                <Grid Visibility="Collapsed">
-                    <TextBox Height="23" AcceptsReturn="False" MaxLines="1" MaxHeight="23" Text="{Binding BotPath}" Margin="0,0,110,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalScrollBarVisibility="Disabled" IsReadOnly="True"/>
+                <Label Visibility="Visible" Content="Map"/>
+                <Grid Visibility="Visible">
+                    <TextBox Height="23" AcceptsReturn="False" MaxLines="1" MaxHeight="23" Text="{Binding MapPath}" Margin="0,0,110,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalScrollBarVisibility="Disabled" IsReadOnly="True"/>
                     <Button x:Name="SelectMap" Height="23" Content="Select map" VerticalAlignment="Bottom" Command="{Binding SelectMap}" Width="100" HorizontalAlignment="Right"/>
                 </Grid>
             </StackPanel>
