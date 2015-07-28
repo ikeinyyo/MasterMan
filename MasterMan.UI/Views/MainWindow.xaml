@@ -4,6 +4,7 @@
         xmlns:mvvm="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         DataContext="{StaticResource MainViewModel}"
+        SizeChanged="OnWindowSizeChanged"
         Title="MasterMan" Height="600" Width="800" ResizeMode="CanResize" WindowStartupLocation="CenterScreen" KeyUp="OnWindowKeyUp">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
@@ -16,15 +17,16 @@
             <RowDefinition/>
             <RowDefinition Height="150"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Panel.ZIndex="0">
             <Canvas x:Name="SceneWorld" Margin="0,0,0,0" Background="LimeGreen"/>
         </Grid>
-        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Margin="10" >
+        
+        <Grid Panel.ZIndex="999" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Background="White" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel>
+            <StackPanel Margin="10">
                 <Label Content="Bot"/>
                 <Grid>
                     <TextBox Height="23" AcceptsReturn="False" MaxLines="1" MaxHeight="23" Text="{Binding BotPath}" Margin="0,0,110,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalScrollBarVisibility="Disabled" IsReadOnly="True"/>
@@ -37,12 +39,12 @@
                 </Grid>
             </StackPanel>
 
-            <StackPanel  Grid.Column="1" Margin="10,0,0,0">
+            <StackPanel  Grid.Column="1" Margin="10">
                 <Label Content="Velocity"/>
                 <Slider VerticalAlignment="Top" Maximum="1500" Interval="100" Value="{Binding Velocity,Mode=TwoWay}" SmallChange="100" LargeChange="200"/>
             </StackPanel>
 
-            <Button x:Name="Start" Grid.Column="0" Grid.ColumnSpan="2"  Content="Start" Margin="0" VerticalAlignment="Bottom" Command="{Binding CreateWorld}" HorizontalAlignment="Right" Width="100"/>
+            <Button x:Name="Start" Grid.Column="0" Grid.ColumnSpan="2"  Content="Start" VerticalAlignment="Bottom" Margin="10" Command="{Binding CreateWorld}" HorizontalAlignment="Right" Width="100"/>
 
         </Grid>
 

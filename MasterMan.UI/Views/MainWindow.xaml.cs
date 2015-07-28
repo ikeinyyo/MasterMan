@@ -27,6 +27,8 @@ namespace MasterMan.UI
     {
         #region Fields
         private MasterRender render;
+        private int displacedX = 0;
+        private int displacedY = 0;
         #endregion
 
         public MainWindow()
@@ -36,9 +38,9 @@ namespace MasterMan.UI
         }
         private void InitializeRender()
         {
-            render = new MasterRender(SceneWorld, "pack://application:,,,/MasterMan.UI;component/Assets/Textures/texture-map.png", 32, 256);
+            render = new MasterRender(SceneWorld, SettingsService.DefaultTexture, SettingsService.TileSize, SettingsService.TileMapSize);
             render.SetBackgroundColor(Colors.LimeGreen);
-            render.Render();
+            render.Render(displacedX, displacedY);
             MainViewModel viewModel = DataContext as MainViewModel;
             if (viewModel != null)
             {
@@ -48,7 +50,21 @@ namespace MasterMan.UI
 
         private void Render(object sender, EventArgs e)
         {
-            render.Render();
+            Render();
+        }
+        private void Render()
+        {
+            UpdatePadding();
+            render.Render(displacedX, displacedY);
+        }
+        private void UpdatePadding()
+        {
+            Player player = EntityManager.Instance.Player;
+            if (player != null)
+            {
+                displacedX = player.Position.X - (int)SceneWorld.ActualWidth / SettingsService.TileSize / 2;
+                displacedY = player.Position.Y - (int)SceneWorld.ActualHeight / SettingsService.TileSize / 2;
+            }
         }
 
         private void OnWindowKeyUp(object sender, KeyEventArgs e)
@@ -80,9 +96,14 @@ namespace MasterMan.UI
                 if (action)
                 {
                     EntityManager.Instance.Update();
-                    render.Render();
+                    Render();
                 }
             }
+        }
+
+        private void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            Render();
         }
     }
 }

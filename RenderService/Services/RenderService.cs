@@ -32,6 +32,11 @@ namespace RenderService.Services
 
         public void Render(List<GraphicNode> tree)
         {
+            Render(tree, 0, 0);
+        }
+
+        public void Render(List<GraphicNode> tree, int displacedX, int displacedY)
+        {
             world.Children.Clear();
 
             world.Background = new SolidColorBrush(backgroundColor);
@@ -43,8 +48,8 @@ namespace RenderService.Services
                 tile.Width = tileSize;
                 tile.Height = tileSize;
 
-                Canvas.SetLeft(tile, node.Position.X * tileSize);
-                Canvas.SetTop(tile, node.Position.Y * tileSize);
+                Canvas.SetLeft(tile, (node.Position.X - displacedX) * tileSize);
+                Canvas.SetTop(tile, (node.Position.Y - displacedY) * tileSize);
                 world.Children.Add(tile);
 
             }

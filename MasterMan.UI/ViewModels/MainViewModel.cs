@@ -59,7 +59,7 @@ namespace MasterMan.UI.ViewModels
         public string MapPath
         {
             get { return mapPath; }
-            set { mapPath = value; RaisePropertyChanged(); if (!string.IsNullOrEmpty(MapPath)) { updateWorld(); } }
+            set { mapPath = value; RaisePropertyChanged(); if (!string.IsNullOrEmpty(MapPath)) { UpdateWorld(); } }
         }
 
         private int velocity;
@@ -315,12 +315,10 @@ namespace MasterMan.UI.ViewModels
                     Settings.Default.LastMapPath = string.Empty;
                 } 
                 Settings.Default.Save();
-
-                
             }
         }
 
-        private void updateWorld()
+        private void UpdateWorld()
         {
             reset();
 
@@ -333,12 +331,11 @@ namespace MasterMan.UI.ViewModels
             try
             {
                 mapReader = new MapReader(MapPath, entityDictionary);
- 
             }
             catch(FileNotFoundException ex)
             {
                 mapReader = null;
-                MessageBox.Show("Map File Not Found");
+                MessageBox.Show("Map File Not Found. " + ex.Message);
                 Settings.Default.LastMapPath = string.Empty;
                 MapPath = string.Empty;
                 Settings.Default.Save();

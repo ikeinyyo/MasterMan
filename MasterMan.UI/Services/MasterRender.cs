@@ -23,6 +23,12 @@ namespace MasterMan.UI.Services
             render.SetBackgroundColor(color);
         }
 
+        public void Render(int displacedX, int displacedY)
+        {
+            List<GraphicNode> tree = SceneManager.Instance.GetUpdatedTree();
+            render.Render(tree, displacedX, displacedY);
+        }
+
         public void Render()
         {
             List<GraphicNode> tree = SceneManager.Instance.GetUpdatedTree();
